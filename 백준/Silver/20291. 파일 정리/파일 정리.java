@@ -25,9 +25,13 @@ public class Main {
 		
 		Collections.sort(list);
 		
+		StringBuilder sb = new StringBuilder();
+		
 		for(String out : list) {
-			System.out.println(out+" "+map.get(out));
+			sb.append(out).append(" ").append(map.get(out)).append("\n");
 		}
+		
+		System.out.println(sb.toString().trim());
 	}
 
 }
