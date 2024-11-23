@@ -23,13 +23,12 @@ public class Main {
 		
 		for(int i = 0; i < m; i++) {
 			String problem = br.readLine();
-			try {
+			if(str.containsKey(problem)) {
+				System.out.println(str.get(problem));
+			} else {
 				int k = Integer.parseInt(problem);
 				System.out.println(num.get(k));
-			} catch (Exception e) {
-				System.out.println(str.get(problem));
 			}
 		}
 	}
-
 }
