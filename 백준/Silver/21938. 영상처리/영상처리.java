@@ -21,7 +21,7 @@ public class Main {
         visit = new boolean[row][col];
         
         for(int i = 0; i < row; i++) {
-        	st = new StringTokenizer(br.readLine());
+        	st = new StringTokenizer(br.readLine(), " ");
         	
         	for(int j = 0; j < col; j++) {
         		int input1 = Integer.parseInt(st.nextToken());
