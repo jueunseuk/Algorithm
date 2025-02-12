@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-    static final int MAX = 5000000;
+    static final int MAX = 1000000;
     static boolean[] prime = new boolean[MAX + 1];
 
     public static void main(String[] args) throws Exception {
@@ -43,7 +43,6 @@ public class Main {
 	        	}
         	}
         }
-        
     }
 
     private static void getSPF() {
