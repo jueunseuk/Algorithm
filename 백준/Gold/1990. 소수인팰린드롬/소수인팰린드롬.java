@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-    static final int MAX = 100000000;
+    static final int MAX = 10000000;
     static boolean[] prime = new boolean[MAX + 1];
     
     public static void main(String[] args) throws Exception {
@@ -12,7 +12,8 @@ public class Main {
         
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
         int a = Integer.parseInt(st.nextToken());
-        int b = Integer.parseInt(st.nextToken());        
+        int b = Integer.parseInt(st.nextToken());
+        b = Math.min(10000000, b);
 
         Arrays.fill(prime, true);
         prime[0] = prime[1] = false;
