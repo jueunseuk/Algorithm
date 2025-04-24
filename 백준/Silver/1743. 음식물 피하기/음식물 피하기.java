@@ -8,7 +8,6 @@ import java.util.StringTokenizer;
 public class Main {
 	static int row, col, max = 0;
 	static boolean[][] matrix;
-	static boolean[][] visit;
 	
 	static int dx[] = {1, -1, 0, 0};
 	static int dy[] = {0, 0, 1, -1};
@@ -22,7 +21,6 @@ public class Main {
         int k = Integer.parseInt(st.nextToken());
         
         matrix = new boolean[row][col];
-        visit = new boolean[row][col];
         
         for(int i = 0; i < k; i++) {
         	st = new StringTokenizer(br.readLine(), " ");
@@ -31,7 +29,7 @@ public class Main {
         
         for(int i = 0; i < row; i++) {
         	for(int j = 0; j < col; j++) {
-        		if(!visit[i][j] && matrix[i][j]) {
+        		if(matrix[i][j]) {
         			bfs(i, j);
         		}
         	}
@@ -44,7 +42,7 @@ public class Main {
 		Queue<int[]> q = new ArrayDeque<>();
 		
 		q.offer(new int[] {i, j});
-		visit[i][j] = true;
+		matrix[i][j] = false;
 		
 		int cnt = 1;
 		while(!q.isEmpty()) {
@@ -54,9 +52,9 @@ public class Main {
 				int nx = poll[0] + dx[delta];
 				int ny = poll[1] + dy[delta];
 				
-				if(nx >= 0 && ny >= 0 && nx < row && ny < col && !visit[nx][ny] & matrix[nx][ny]) {
+				if(nx >= 0 && ny >= 0 && nx < row && ny < col && matrix[nx][ny]) {
 					q.offer(new int[] {nx, ny});
-					visit[nx][ny] = true;
+					matrix[nx][ny] = false;
 					cnt++;
 				}
 			}
