@@ -30,7 +30,7 @@ public class Main {
         
         for(int i = 0; i < size; i++) {
         	for(int j = 0; j < size; j++) {
-        		int dist = coordination(list[i][1], list[i][2], list[j][1], list[j][2]);
+        		int dist = Math.abs(list[i][1]-list[j][1]) + Math.abs(list[i][2]-list[j][2]);
         		
         		if(list[i][0] == 1 && list[j][0] == 1) {
         			result[i][j] = Math.min(dist, time);
@@ -42,6 +42,7 @@ public class Main {
         
         for(int k = 0 ; k < size; k++) {
         	for(int i = 0; i < size; i++) {
+        		if(i == k) continue;
         		for(int j = 0; j < size; j++) {
         			result[i][j] = Math.min(result[i][j], result[i][k]+result[k][j]);
         		}
@@ -56,9 +57,5 @@ public class Main {
         }
         
         System.out.println(sb.toString().trim());
-	}
-
-	private static int coordination(int x1, int y1, int x2, int y2) {
-		return Math.abs(x1-x2) + Math.abs(y1-y2);
 	}
 }
