@@ -65,12 +65,12 @@ public class Main {
         for (int i = 0; i < N; i++) {
             List<Integer> cList = child.get(i);
             Collections.sort(cList);
-            
-            sb.append(name[i]).append(' ').append(cList.size()).append(' ');
-            if(cList.size() == 0) {
-            	sb.deleteCharAt(sb.length()-1);
+
+            sb.append(name[i]).append(' ').append(cList.size());
+
+            for (int idx : cList) {
+                sb.append(' ').append(name[idx]);
             }
-            cList.stream().map(idx -> name[idx]).forEach(s -> sb.append(s));
             sb.append('\n');
         }
         
