@@ -32,10 +32,10 @@ public class Main {
 
 	private static void bfs(int int1, int int2) {
 		Queue<int[]> q = new ArrayDeque<>();
-		visit = new boolean[n];
+		visit = prime.clone();
 		
 		q.offer(new int[] {int1, 0});
-		visit[int1] = true;
+		visit[int1] = false;
 		
 		while(!q.isEmpty()) {
 			int[] poll = q.poll();
@@ -54,9 +54,9 @@ public class Main {
 			
 			curr -= four;
 			for(int delta = 0; delta <= 9; delta++) {
-				if(prime[curr] && !visit[curr]) {
+				if(visit[curr]) {
 					q.offer(new int[] {curr, dist});
-					visit[curr] = true;
+					visit[curr] = false;
 				}
 				curr++;
 			}
@@ -64,9 +64,9 @@ public class Main {
 			curr = poll[0];
 			curr -= three*10;
 			for(int delta = 0; delta <= 9; delta++) {
-				if(prime[curr] && !visit[curr]) {
+				if(visit[curr]) {
 					q.offer(new int[] {curr, dist});
-					visit[curr] = true;
+					visit[curr] = false;
 				}
 				curr += 10;
 			}
@@ -74,9 +74,9 @@ public class Main {
 			curr = poll[0];
 			curr -= two*100;
 			for(int delta = 0; delta <= 9; delta++) {
-				if(prime[curr] && !visit[curr]) {
+				if(visit[curr]) {
 					q.offer(new int[] {curr, dist});
-					visit[curr] = true;
+					visit[curr] = false;
 				}
 				curr += 100;
 			}
@@ -85,9 +85,9 @@ public class Main {
 			curr -= one*1000;
 			curr += 1000;
 			for(int delta = 0; delta < 9; delta++) {
-				if(prime[curr] && !visit[curr]) {
+				if(visit[curr]) {
 					q.offer(new int[] {curr, dist});
-					visit[curr] = true;
+					visit[curr] = false;
 				}
 				curr += 1000;
 			}
