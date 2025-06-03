@@ -1,0 +1,82 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+public class Main {
+	static int n, m;
+	static long total = 0;
+	static List<List<Edge>> list = new ArrayList<>();
+	static boolean visit[];
+
+	public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        n = Integer.parseInt(br.readLine());
+        m = Integer.parseInt(br.readLine());
+        
+        visit = new boolean[n+1];
+        
+        for(int i = 0; i <= n; i++) {
+        	list.add(new ArrayList<>());
+        }
+        
+        StringTokenizer st;
+        for(int i = 0; i < m; i++) {
+        	st = new StringTokenizer(br.readLine(), " ");
+        	int start = Integer.parseInt(st.nextToken());
+        	int end = Integer.parseInt(st.nextToken());
+        	int c = Integer.parseInt(st.nextToken());
+        	
+        	list.get(start).add(new Edge(end, c));
+        	list.get(end).add(new Edge(start, c));
+        }
+        
+        prim();
+        
+        System.out.println(total);
+	}
+
+	private static void prim() {
+		Queue<Edge>	q = new PriorityQueue<>();
+		
+		q.addAll(list.get(1));
+		visit[1] = true;
+		
+		while(!q.isEmpty()) {
+			Edge poll = q.poll();
+			
+			if(visit[poll.node]) {
+				continue;
+			}
+			
+			visit[poll.node] = true;
+			total += poll.w;
+			
+			for(Edge out : list.get(poll.node)) {
+				if(!visit[out.node]) {
+					q.offer(out);
+				}
+			}
+		}
+	}
+
+	static class Edge implements Comparable<Edge>{
+		int node;
+		long w;
+		
+		public Edge(int node, long w) {
+			this.node = node;
+			this.w = w;
+		}
+
+		@Override
+		public int compareTo(Edge o) {
+			return Long.compare(this.w, o.w);
+		}
+	}
+}
