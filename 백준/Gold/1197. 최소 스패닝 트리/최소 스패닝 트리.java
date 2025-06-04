@@ -1,82 +1,79 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
-	static int n, m;
-	static long total = 0;
-	static List<List<Edge>> list = new ArrayList<>();
-	static boolean visit[];
+	static int n, m, total = 0;
+	static List<Edge> list = new ArrayList<>();
+	static int parent[];
 
-	public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        
-        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
-        
-        visit = new boolean[n+1];
-        
-        for(int i = 0; i <= n; i++) {
-        	list.add(new ArrayList<>());
-        }
-        
-        for(int i = 0; i < m; i++) {
-        	st = new StringTokenizer(br.readLine(), " ");
-        	int start = Integer.parseInt(st.nextToken());
-        	int end = Integer.parseInt(st.nextToken());
-        	int c = Integer.parseInt(st.nextToken());
-        	
-        	list.get(start).add(new Edge(end, c));
-        	list.get(end).add(new Edge(start, c));
-        }
-        
-        prim();
-        
-        System.out.println(total);
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+		StringTokenizer st = new StringTokenizer(br.readLine() , " ");
+		n = Integer.parseInt(st.nextToken());
+		m = Integer.parseInt(st.nextToken());
+		
+		parent = new int[n+1];
+		for(int i = 1; i <= n; i++) {
+			parent[i] = i;
+		}
+		
+		for(int i = 0; i < m; i++) {
+			st = new StringTokenizer(br.readLine() , " ");
+			int start = Integer.parseInt(st.nextToken());
+			int end = Integer.parseInt(st.nextToken());
+			int cost = Integer.parseInt(st.nextToken());
+			
+			list.add(new Edge(start, end, cost));
+		}
+		
+		Collections.sort(list);
+		
+		int cnt = 0;
+		for(Edge out : list) {
+			if(find(out.start) != find(out.end)) {
+				union(out.start, out.end);
+				total += out.w;
+				if(++cnt == n-1) break;
+			}
+		}
+		
+		System.out.println(total);
 	}
-
-	private static void prim() {
-		Queue<Edge>	q = new PriorityQueue<>();
+	
+	private static int find(int x) {
+		if(parent[x] != x) {
+			parent[x] = find(parent[x]);
+		}
 		
-		q.addAll(list.get(1));
-		visit[1] = true;
+		return parent[x];
+	}
+	
+	private static void union(int x, int y) {
+		int rx = find(x);
+		int ry = find(y);
 		
-		while(!q.isEmpty()) {
-			Edge poll = q.poll();
-			
-			if(visit[poll.node]) {
-				continue;
-			}
-			
-			visit[poll.node] = true;
-			total += poll.w;
-			
-			for(Edge out : list.get(poll.node)) {
-				if(!visit[out.node]) {
-					q.offer(out);
-				}
-			}
+		if(rx != ry) {
+			parent[rx] = ry;
 		}
 	}
 
 	static class Edge implements Comparable<Edge>{
-		int node;
-		long w;
-		
-		public Edge(int node, long w) {
-			this.node = node;
+		int start, end, w;
+
+		public Edge(int start, int end, int w) {
+			this.start = start;
+			this.end = end;
 			this.w = w;
 		}
 
 		@Override
 		public int compareTo(Edge o) {
-			return Long.compare(this.w, o.w);
+			return this.w - o.w;
 		}
 	}
 }
