@@ -1,7 +1,4 @@
-import java.util.Arrays;
-
 public class Main {
-
 	public static void main(String[] args) throws Exception {
 		Reader rd = new Reader();
 		
@@ -9,14 +6,28 @@ public class Main {
 		
 		StringBuilder sb = new StringBuilder();
 		for(int t = 0; t < T; t++) {
-			int[] arr = new int[10];
+			int n1 = 0, n2 = 0, n3 = 0;
+			
+			int input;
 			for(int i = 0; i < 10; i++) {
-				arr[i] = rd.nextInt();
+				input = rd.nextInt();
+				if(input > n1) {
+					n3 = n2;
+					n2 = n1;
+					n1 = input;
+				} else {
+					if(input > n2) {
+						n3 = n2;
+						n2 = input;
+					} else {
+						if(input > n3) {
+							n3 = input;
+						}
+					}
+				}
 			}
 			
-			Arrays.sort(arr);
-			
-			sb.append(arr[7]+"\n");
+			sb.append(n3+"\n");
 		}
 
 		System.out.println(sb.toString().trim());
