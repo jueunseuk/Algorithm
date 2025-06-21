@@ -6,7 +6,7 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
-	static int target, c, size = 12000;
+	static int target, c, size = 11000;
 	static int[] pos, neg, coin;
 	static boolean[] visitn, visitp;
 	public static void main(String[] args) throws Exception {
@@ -24,8 +24,6 @@ public class Main {
 			for(int i = 0; i < c; i++) {
 				coin[i] = Integer.parseInt(st.nextToken());
 			}
-			
-			Arrays.sort(coin);
 		}
 		
 		pos = new int[size];
