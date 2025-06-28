@@ -9,8 +9,7 @@ public class Main {
         long n = Long.parseLong(br.readLine());
         long result = n;
         
-        int limit = (int) Math.sqrt(n);
-        for(int i = 2; i <= limit; i++) {
+        for(int i = 2; i <= Math.sqrt(n); i++) {
         	if(n % i == 0) {
         		while(n % i == 0) {
         			n /= i;
