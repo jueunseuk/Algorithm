@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.StringTokenizer;
 
 public class Main {
 	
@@ -14,16 +13,13 @@ public class Main {
 	static long[] cost;
 
 	public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		Reader rd = new Reader();
         
-        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
-        
-        st = new StringTokenizer(br.readLine(), " ");
-        s = Integer.parseInt(st.nextToken());
-        t = Integer.parseInt(st.nextToken());
-        init = Integer.parseInt(st.nextToken());
+        n = rd.nextInt();
+        m = rd.nextInt();
+        s = rd.nextInt();
+        t = rd.nextInt();
+        init = rd.nextInt();
         
         cost = new long[n+1];
         Arrays.fill(cost, -1);
@@ -33,10 +29,9 @@ public class Main {
         }
         
         for(int i = 0; i < m; i++) {
-        	st = new StringTokenizer(br.readLine(), " ");
-        	int start = Integer.parseInt(st.nextToken());
-        	int end = Integer.parseInt(st.nextToken());
-        	int c = 100 - Integer.parseInt(st.nextToken());
+        	int start = rd.nextInt();
+        	int end = rd.nextInt();
+        	int c = 100 - rd.nextInt();
         	
         	list.get(start).add(new int[] {end, c});
         	list.get(end).add(new int[] {start, c});
@@ -84,5 +79,34 @@ public class Main {
 		public int compareTo(Node o) {
 			return Long.compare(o.candy, this.candy);
 		}
+	}
+	
+	static class Reader {
+	    private final int SIZE = 1 << 13;
+	    private byte[] buffer = new byte[SIZE];
+	    private int index, size;
+	    
+	    int nextInt() throws Exception {
+	        int lis = 0;
+	        byte c;
+	        boolean isMinus = false;
+	        while ((c = read()) <= 32);
+	        if (c == 45) { c = read(); isMinus = true; }
+	        do lis = (lis << 3) + (lis << 1) + (c & 15);
+	        while (isnumber(c = read()));
+	        return isMinus ? ~lis + 1 : lis;
+	    }
+
+	    private boolean isnumber(byte c) {
+	        return 47 < c && c < 58;
+	    }
+
+	    private byte read() throws Exception {
+	        if (index == size) {
+	            size = System.in.read(buffer, index = 0, SIZE);
+	            if (size < 0) buffer[0] = -1;
+	        }
+	        return buffer[index++];
+	    }
 	}
 }
