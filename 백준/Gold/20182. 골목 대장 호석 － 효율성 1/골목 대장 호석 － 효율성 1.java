@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -10,7 +11,7 @@ import java.util.StringTokenizer;
 public class Main {
 	static final int INF = 1000000000;
 	
-	static int n, m, s, e, money;
+	static int n, m, s, e, money, result = Integer.MAX_VALUE;
 	static List<List<int[]>> list = new ArrayList<>();
 	static int cost[][];
 	
@@ -36,7 +37,7 @@ public class Main {
 		
 		for(int i = 0; i <= n; i++) {
 			list.add(new ArrayList<>());
-			cost[i][0] = INF;
+			Arrays.fill(cost[i], INF);
 		}
 		
 		for(int i = 0; i < m; i++) {
@@ -63,25 +64,25 @@ public class Main {
 			int[] poll = q.poll();
 			
 			if(poll[0] == e) {
-				System.out.println(poll[2]);
-				return;
+				result = Math.min(result, poll[2]);
 			}
 			
-			if(poll[1] > cost[poll[0]][0]) continue;
+			if(poll[1] > cost[poll[0]][0] && poll[2] >= cost[poll[0]][1]) continue;
 			
 			for(int[] out : list.get(poll[0])) {
 				int nc = out[1] + poll[1];
-				
 				if(nc > money) continue;
 				
-				if(cost[out[0]][0] > nc) {
-					cost[out[0]][0] = nc;
-					cost[out[0]][1] = Math.max(poll[2], out[1]);
-					q.offer(new int[] {out[0], nc, cost[out[0]][1]});
+				int nm = Math.max(poll[2], out[1]);
+				
+				if(cost[out[0]][0] > nc || cost[out[0]][1] > nm) {
+					cost[out[0]][0] = Math.min(cost[out[0]][0], nc);
+					cost[out[0]][1] = Math.min(cost[out[0]][1], nm);
+					q.offer(new int[] {out[0], nc, nm});
 				}
 			}
 		}
 		
-		System.out.println(-1);
+		System.out.println(result == Integer.MAX_VALUE ? -1 : result);
 	}
 }
