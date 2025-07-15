@@ -5,9 +5,6 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-	static final int MAX = 10_000_000;
-	static boolean[] prime = new boolean[MAX+1];
-
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
@@ -20,8 +17,6 @@ public class Main {
 			return;
 		}
 		
-		preprocess();
-		
 		long res = 1;
         for (long i = 2; i <= n; i++) {
             res *= i;
@@ -30,19 +25,5 @@ public class Main {
         }
         
         System.out.println(res);
-	}
-
-	private static void preprocess() {
-		Arrays.fill(prime, true);
-		prime[0] = prime[1] = false;
-		
-		int length = (int) Math.sqrt(MAX);
-		for(int i = 2; i <= length; i++) {
-			if(prime[i]) {
-				for(int j = i*i; j <= MAX; j+= i) {
-					prime[j] = false;
-				}
-			}
-		}
 	}
 }
