@@ -50,11 +50,8 @@ public class Main {
         	list.get(end).add(start);
         }
         
-        state = new int[n+1];
-        for(int out : danger) {
-        	state[out] = 2;
-        	bfs(out);
-        }
+        
+        bfs();
         
         dijkstra(1, n);
 	}
@@ -97,12 +94,16 @@ public class Main {
 		}
 	}
 	
-	private static void bfs(int i) {
+	private static void bfs() {
 		Queue<int[]> q = new ArrayDeque<>();
 		boolean[] visit = new boolean[n+1];
+		state = new int[n+1];
 		
-		q.offer(new int[] {i, 0});
-		visit[i] = true;
+		for(int out : danger) {
+			q.offer(new int[] {out, 0});
+			state[out] = 2;
+			visit[out] = true;
+		}
 		
 		while(!q.isEmpty()) {
 			int[] poll = q.poll();
