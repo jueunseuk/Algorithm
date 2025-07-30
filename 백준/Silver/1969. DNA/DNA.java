@@ -16,6 +16,7 @@ public class Main {
 			dna[i] = br.readLine();
 		}
 		
+		int diff = 0;
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0; i < m; i++) {
 			int[] cnt = new int[26];
@@ -34,13 +35,8 @@ public class Main {
 			
 			idx += 'A';
 			sb.append((char) idx);
-		}
-		
-		int diff = 0;
-		for(String out : dna) {
-			for(int j = 0; j < m; j++) {
-				if(sb.charAt(j) != out.charAt(j)) diff++;
-			}
+			
+			diff += n-max;
 		}
 		
 		System.out.println(sb.toString().trim());
