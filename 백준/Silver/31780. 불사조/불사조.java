@@ -17,7 +17,7 @@ public class Main {
         Queue<Integer> q = new ArrayDeque<>();
         q.offer(x);
         
-        long sum = x;
+        int sum = x;
         for(int i = 0; i < m; i++) {
         	int size = q.size();
         	
