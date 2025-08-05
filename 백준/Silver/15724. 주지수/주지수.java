@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -26,10 +27,11 @@ public class Main {
         	sum[i][1] = matrix[i][1];
         }
         for(int i = 1; i <= row; i++) {
-        	for(int j = 2; j <= col; j++) {
-        		sum[i][j] += sum[i][j-1] + matrix[i][j];
+        	for(int j = 1; j <= col; j++) {
+        		sum[i][j] = sum[i-1][j] + sum[i][j-1] - sum[i-1][j-1] + matrix[i][j];
         	}
         }
+        
         
         int m = Integer.parseInt(br.readLine());
         
@@ -41,10 +43,7 @@ public class Main {
         	int ex = Integer.parseInt(st.nextToken());
         	int ey = Integer.parseInt(st.nextToken());
         	
-        	int answer = 0;
-        	for(int i = sx; i <= ex; i++) {
-        		answer += sum[i][ey]-sum[i][sy-1];
-        	}
+        	int answer = sum[ex][ey] - sum[sx - 1][ey] - sum[ex][sy - 1] + sum[sx - 1][sy - 1];
         	
         	sb.append(answer+"\n");
         }
