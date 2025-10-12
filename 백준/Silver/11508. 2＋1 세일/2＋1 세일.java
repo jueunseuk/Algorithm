@@ -10,7 +10,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         
         int n = Integer.parseInt(br.readLine());
-        long result = 0;
+        int result = 0;
         
         Queue<Integer> q = new PriorityQueue<>(Collections.reverseOrder());
         for(int i = 0; i < n; i++) {
