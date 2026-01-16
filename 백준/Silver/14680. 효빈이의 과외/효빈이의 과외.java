@@ -1,80 +1,69 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
     static final int MOD = 1000000007;
 
+    static class Mat {
+        int r, c;
+        int[][] a;
+        Mat(int r, int c, int[][] a) { this.r = r; this.c = c; this.a = a; }
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         int n = Integer.parseInt(br.readLine());
 
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int row = Integer.parseInt(st.nextToken());
-        int col = Integer.parseInt(st.nextToken());
+        Mat[] mats = new Mat[n];
 
-        int[][] arr = new int[row][col];
-        for (int i = 0; i < row; i++) {
-            st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < col; j++) {
-                arr[i][j] = Integer.parseInt(st.nextToken());
-            }
-        }
+        for (int i = 0; i < n; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int r = Integer.parseInt(st.nextToken());
+            int c = Integer.parseInt(st.nextToken());
 
-        boolean possible = true;
-
-        for (int i = 1; i < n; i++) {
-            st = new StringTokenizer(br.readLine());
-            int r2 = Integer.parseInt(st.nextToken());
-            int c2 = Integer.parseInt(st.nextToken());
-
-            int[][] curr = new int[r2][c2];
-            for (int a = 0; a < r2; a++) {
+            int[][] a = new int[r][c];
+            for (int x = 0; x < r; x++) {
                 st = new StringTokenizer(br.readLine());
-                for (int b = 0; b < c2; b++) {
-                    curr[a][b] = Integer.parseInt(st.nextToken());
+                for (int y = 0; y < c; y++) {
+                    a[x][y] = Integer.parseInt(st.nextToken());
                 }
             }
-
-            if (arr[0].length != r2) {
-                possible = false;
-                break;
-            }
-
-            int r1 = arr.length;
-            int k = arr[0].length;
-            int c1 = c2;
-
-            int[][] multi = new int[r1][c1];
-
-            for (int a = 0; a < r1; a++) {
-                for (int b = 0; b < c1; b++) {
-                    long val = 0;
-                    for (int c = 0; c < k; c++) {
-                        val += (long) arr[a][c] * curr[c][b];
-                        val %= MOD;
-                    }
-                    multi[a][b] = (int) val;
-                }
-            }
-
-            arr = multi;
+            mats[i] = new Mat(r, c, a);
         }
 
-        if (!possible) {
-            System.out.println(-1);
-            return;
+        for (int i = 0; i < n - 1; i++) {
+            if (mats[i].c != mats[i + 1].r) {
+                System.out.println(-1);
+                return;
+            }
+        }
+
+        int[] v = new int[mats[n - 1].c];
+        Arrays.fill(v, 1);
+
+        for (int i = n - 1; i >= 0; i--) {
+            Mat m = mats[i];
+            int[] nv = new int[m.r];
+
+            for (int r = 0; r < m.r; r++) {
+                long acc = 0;
+                for (int c = 0; c < m.c; c++) {
+                    acc += (long) m.a[r][c] * v[c];
+                    acc %= MOD;
+                }
+                nv[r] = (int) acc;
+            }
+            v = nv;
         }
 
         long sum = 0;
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr[i].length; j++) {
-                sum += arr[i][j];
-                sum %= MOD;
-            }
+        for (int x : v) {
+            sum += x;
+            sum %= MOD;
         }
-
+        
         System.out.println(sum);
     }
 }
