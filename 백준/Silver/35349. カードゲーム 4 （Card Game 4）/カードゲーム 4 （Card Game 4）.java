@@ -15,23 +15,41 @@ public class Main {
         int n = Integer.parseInt(st.nextToken());
         int k = Integer.parseInt(st.nextToken());
         
-        Queue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        Queue<Integer> odd = new PriorityQueue<>(Collections.reverseOrder());
+        Queue<Integer> even = new PriorityQueue<>(Collections.reverseOrder());
         st = new StringTokenizer(br.readLine(), " ");
         for(int i = 0; i < n; i++) {
         	int input = Integer.parseInt(st.nextToken());
         	if(input % 2 == 1) {
-        		pq.offer(input);
+        		odd.offer(input);
+        	} else {
+        		even.offer(input);
         	}
         }
         
-        if(pq.size() < k) {
+        if(odd.size() < k && even.size() < k) {
         	System.out.println(0);
-        } else {
+        } else if(odd.size() < k) {
         	long sum = 0;
         	for(int i = 0; i < k; i++) {
-        		sum += pq.poll();
+        		sum += even.poll();
         	}
         	System.out.println(sum);
+        } else if(even.size() < k) {
+        	long sum = 0;
+        	for(int i = 0; i < k; i++) {
+        		sum += odd.poll();
+        	}
+        	System.out.println(sum);
+        } else {
+        	long oddSum = 0;
+        	long evenSum = 0;
+        	for(int i = 0; i < k; i++) {
+        		oddSum += odd.poll();
+        		evenSum += even.poll();
+        	}
+        	
+        	System.out.println(Math.max(oddSum, evenSum));
         }
 	}
 }
