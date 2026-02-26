@@ -1,10 +1,10 @@
-# [Silver III] Photo Encoding - 35358 
+# [Silver II] Photo Encoding - 35358 
 
 [문제 링크](https://www.acmicpc.net/problem/35358) 
 
 ### 성능 요약
 
-메모리: 11784 KB, 시간: 72 ms
+메모리: 11768 KB, 시간: 68 ms
 
 ### 분류
 
@@ -12,7 +12,7 @@
 
 ### 제출 일자
 
-2026년 2월 26일 09:13:15
+2026년 2월 26일 09:20:08
 
 ### 문제 설명
 
