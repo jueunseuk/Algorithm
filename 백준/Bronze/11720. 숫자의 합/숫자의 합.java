@@ -1,0 +1,24 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int N = Integer.parseInt(br.readLine());
+		String[] str = br.readLine().split("");
+		int []num = new int[N];
+		for(int i = 0 ; i < N; i++) {
+			num[i] = Integer.parseInt(str[i]);
+		}
+		
+		int sum = 0;
+		
+		for(int i = 0 ; i < N; i++) {
+			sum += num[i];
+		}
+		System.out.println(sum);
+	}
+
+}
