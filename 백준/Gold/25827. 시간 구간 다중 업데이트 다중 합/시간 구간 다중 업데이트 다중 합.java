@@ -10,7 +10,7 @@ public class Main {
         
         int query = Integer.parseInt(br.readLine());
         
-        int[] diff = new int[SEC];
+        int[] diff = new int[SEC+1];
         
         StringTokenizer st;
         
@@ -35,11 +35,11 @@ public class Main {
         	diff[e+1]--;
         }
         
-        for(int i = 1; i < SEC; i++) {
+        for(int i = 1; i <= SEC; i++) {
         	diff[i] += diff[i-1];
         }
         
-        for(int i = 1; i < SEC; i++) {
+        for(int i = 1; i <= SEC; i++) {
         	diff[i] += diff[i-1];
         }
         
