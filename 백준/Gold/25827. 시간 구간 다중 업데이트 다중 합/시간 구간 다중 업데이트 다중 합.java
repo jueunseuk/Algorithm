@@ -10,7 +10,7 @@ public class Main {
         
         int query = Integer.parseInt(br.readLine());
         
-        int[] diff = new int[SEC+1];
+        long[] diff = new long[SEC+1];
         
         StringTokenizer st;
         
