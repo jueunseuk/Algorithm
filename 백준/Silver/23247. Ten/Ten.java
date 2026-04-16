@@ -35,6 +35,7 @@ public class Main {
 				for(int sy = 1; sy <= col; sy++) {
 					for(int ey = sy; ey <= col; ey++) {
 						if(ey-sy >= 10) break;
+                        if((ex-sx+1) * (ey-sy+1) > 10) break;
 						
 						if(sum[ex][ey] - sum[sx-1][ey] - sum[ex][sy-1] + sum[sx-1][sy-1] == 10)
 							cnt++;
